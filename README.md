@@ -1,4 +1,4 @@
-## DL- Developing a Neural Network Classification Model using Transfer Learning
+## EXP- 4 - Developing a Neural Network Classification Model using Transfer Learning
 
 ### AIM
 To develop an image classification model using transfer learning with VGG19 architecture for the given dataset.
@@ -164,42 +164,27 @@ train_model(model, train_loader, test_loader, num_epochs=20)
 
 def test_model(model, test_loader):
     model.eval()
-
     all_preds = []
     all_labels = []
-
     correct = 0
     total = 0
-
     with torch.no_grad():
         for images, labels in test_loader:
-
             images = images.to(device)
             labels = labels.to(device)
-
             outputs = model(images)
-
             probs = torch.sigmoid(outputs)
-
             preds = (probs > 0.5).int().squeeze()
-
             correct += (preds == labels).sum().item()
             total += labels.size(0)
-
             all_preds.extend(preds.cpu().numpy())
             all_labels.extend(labels.cpu().numpy())
-
     accuracy = correct / total
-
     print(f"Test Accuracy: {accuracy:.4f}")
-
     cm = confusion_matrix(all_labels, all_preds)
-
     print("Name: NITHYA D")
     print("Register Number: 212223240110")
-
     plt.figure(figsize=(8, 6))
-
     sns.heatmap(
         cm,
         annot=True,
@@ -208,17 +193,13 @@ def test_model(model, test_loader):
         xticklabels=train_dataset.classes,
         yticklabels=train_dataset.classes
     )
-
     plt.xlabel('Predicted')
     plt.ylabel('Actual')
     plt.title('Confusion Matrix')
-
     plt.show()
-
     print("Name: NITHYA D")
     print("Register Number: 212223240110")
     print("Classification Report:")
-
     print(
         classification_report(
             all_labels,
